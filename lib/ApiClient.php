@@ -110,6 +110,10 @@ class ApiClient
     {
         $versionInfo = "";
         $packages = json_decode(file_get_contents(__DIR__ . "/../../../../vendor/composer/installed.json"), true);
+        // Handle new file format
+        if (isset($packages['packages'])) {
+            $packages = $packages['packages'];
+        }
 
         foreach ($packages as $package) {
             if (strcmp($package['name'], "cybersource/rest-client-php") == 0)
